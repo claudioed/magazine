@@ -14,7 +14,9 @@ public enum  DomainCollection {
     PRODUCTS,
 
     ITEMS,
-    
+
+    FAVORITE_PRODUCTS,
+
     DAILY_SALES,
     
     GATHERINGS,
