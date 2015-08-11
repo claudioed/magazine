@@ -46,6 +46,18 @@ public class ProductAPI extends AbstractVerticle {
                     ctx.response().end(json.encode());
                 }));
 
+        router.get("/api/product/barcode/:barcode").handler(
+                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject().put("barcode.plainBarcode",ctx.request().getParam("barcode")), lookup -> {
+                    if (lookup.failed()) {
+                        ctx.fail(lookup.cause());
+                        return;
+                    }
+                    final JsonArray json = new JsonArray();
+                    lookup.result().forEach(json::add);
+                    ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                    ctx.response().end(json.encode());
+                }));
+
         router.post("/api/product").handler(ctx -> {
             vertx.eventBus().publish(DomainEvent.NEW_PRODUCT.event(), new ProductWrapper(ctx.getBodyAsJson()).toJson());
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
