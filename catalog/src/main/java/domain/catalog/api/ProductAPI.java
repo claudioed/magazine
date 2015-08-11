@@ -54,7 +54,7 @@ public class ProductAPI extends AbstractVerticle {
                     }else if(lookup.result().isEmpty()){
                         ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
                         ctx.response().setStatusCode(404);
-                        ctx.response().end();
+                        ctx.response().end(new JsonObject().encode());
                         return;
                     }
                     final JsonArray json = new JsonArray();

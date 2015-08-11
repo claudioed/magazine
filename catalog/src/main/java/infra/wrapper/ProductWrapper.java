@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
-public class ProductWrapper extends AbstractWrapper<JsonObject> implements RequestWrapper<JsonObject> {
+public class ProductWrapper extends AbstractWrapper<JsonObject>{
 
     public ProductWrapper(JsonObject toConvert) {
         super(toConvert);

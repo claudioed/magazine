@@ -11,6 +11,35 @@
 
     <artifactId>stock</artifactId>
     <packaging>jar</packaging>
+    
+    <dependencies>
 
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-mongo-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-hazelcast</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.claudioliveira</groupId>
+            <artifactId>event</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        
+    </dependencies>
 
 </project>

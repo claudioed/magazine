@@ -7,6 +7,8 @@ public enum  DomainDb {
     
     CATALOG,
     
+    DELIVERY,
+    
     CUSTOMER;
     
     public String db(){
