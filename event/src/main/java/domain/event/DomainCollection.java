@@ -9,9 +9,9 @@ public enum  DomainCollection {
     
     SALES,
     
-    MAGAZINES,
-    
     CUSTOMERS,
+
+    PRODUCTS,
     
     DAILY_SALES,
     

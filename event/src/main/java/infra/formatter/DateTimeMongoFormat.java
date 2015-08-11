@@ -1,4 +1,4 @@
-package infra;
+package infra.formatter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

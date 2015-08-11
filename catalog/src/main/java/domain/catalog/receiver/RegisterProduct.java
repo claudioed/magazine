@@ -1,4 +1,4 @@
-package domain.customer.receiver;
+package domain.catalog.receiver;
 
 import domain.event.DomainCollection;
 import domain.event.DomainDb;
@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
-public class RegisterCustomer extends AbstractVerticle {
+public class RegisterProduct extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.CUSTOMER.db(), DomainDb.CUSTOMER.db()), DomainDb.CUSTOMER.db());
+                new JsonObject().put(DomainDb.CATALOG.db(), DomainDb.CATALOG.db()), DomainDb.CATALOG.db());
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.NEW_CUSTOMER.event(), message ->
                 mongoClient.insert(DomainCollection.CUSTOMERS.collection(), new JsonObject(message

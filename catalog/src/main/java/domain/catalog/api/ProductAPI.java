@@ -1,5 +1,5 @@
 
-package domain.customer.api;
+package domain.catalog.api;
 
 import domain.event.DomainCollection;
 import domain.event.DomainDb;
@@ -18,23 +18,23 @@ import io.vertx.ext.web.handler.BodyHandler;
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
-public class CustomerAPI extends AbstractVerticle {
+public class ProductAPI extends AbstractVerticle {
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new CustomerAPI());
+        vertx.deployVerticle(new ProductAPI());
     }
 
     @Override
     public void start() throws Exception {
 
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.CUSTOMER.db(), DomainDb.CUSTOMER.db()), DomainDb.CUSTOMER.db());
+                new JsonObject().put(DomainDb.CATALOG.db(), DomainDb.CATALOG.db()), DomainDb.CATALOG.db());
         final Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
 
-        router.get("/api/customers").handler(
-                ctx -> mongoClient.find(DomainCollection.CUSTOMERS.collection(), new JsonObject(), lookup -> {
+        router.get("/api/products").handler(
+                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject(), lookup -> {
                     if (lookup.failed()) {
                         ctx.fail(lookup.cause());
                         return;
@@ -45,7 +45,7 @@ public class CustomerAPI extends AbstractVerticle {
                     ctx.response().end(json.encode());
                 }));
 
-        router.post("/api/customer").handler(ctx -> {
+        router.post("/api/product").handler(ctx -> {
             vertx.eventBus().publish(DomainEvent.NEW_CUSTOMER.event(), ctx.getBodyAsJson());
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
             ctx.response().end();
