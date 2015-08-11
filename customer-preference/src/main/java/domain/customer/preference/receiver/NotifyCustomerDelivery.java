@@ -1,5 +1,5 @@
 
-package domain.stock.receiver;
+package domain.customer.preference.receiver;
 
 import domain.event.DomainCollection;
 import domain.event.DomainDb;
@@ -21,8 +21,8 @@ public class NotifyCustomerDelivery extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.CUSTOMER.db(), DomainDb.CUSTOMER.db()),
-                DomainDb.CUSTOMER.db());
+                new JsonObject().put(DomainDb.CUSTOMER_PREFERENCE.db(), DomainDb.CUSTOMER_PREFERENCE.db()),
+                DomainDb.CUSTOMER_PREFERENCE.db());
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.REGISTER_DELIVERY_ITEM.event(), message -> {
                     JsonObject deliveredItem = new JsonObject(message.body().toString());

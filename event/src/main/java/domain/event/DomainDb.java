@@ -13,7 +13,9 @@ public enum  DomainDb {
 
     GATHERING,
     
-    CUSTOMER;
+    CUSTOMER,
+
+    CUSTOMER_PREFERENCE;
     
     public String db(){
         return this.name();
