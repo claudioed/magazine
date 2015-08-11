@@ -8,6 +8,8 @@ public enum  DomainDb {
     CATALOG,
     
     DELIVERY,
+
+    SALE,
     
     CUSTOMER;
     

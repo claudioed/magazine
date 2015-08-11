@@ -8,6 +8,8 @@ package domain.event;
 public enum DomainEvent {
 
     REGISTER_DELIVERY,
+
+    REGISTER_SALE,
     
     NEW_CUSTOMER,
 
@@ -15,25 +17,9 @@ public enum DomainEvent {
 
     REGISTER_DELIVERY_ITEM,
 
-    NEW_FAVORITE_MAGAZINE,
-    
-    SUCCESS_DELIVERY,
-    
-    SUCCESS_GATHERING,
-    
-    NEW_GATHERING,
-    
-    UPDATE_MAGAZINE_ON_DELIVERY,
-    
-    NEW_SALE,
-    
-    FILL_MAGAZINE_PRICE_IN_HISTORY,
-    
-    UPDATE_MAGAZINE_STOCK,
-    
-    UPDATE_DELIVERY_STOCK,
-    
-    NOTIFY_CUSTOMER_ARRIVE_NEW_MAGAZINE;
+    REGISTER_ITEM_BY_SALE,
+
+    REGISTER_ITEM_BY_GATHERING;
 
     public String event(){
         return this.name();
