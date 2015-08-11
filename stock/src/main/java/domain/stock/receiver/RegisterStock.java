@@ -23,7 +23,7 @@ public class RegisterStock extends AbstractVerticle {
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.REGISTER_DELIVERY_ITEM.event(), message ->
                 mongoClient.insert(DomainCollection.ITEMS.collection(), new JsonObject(message
-                        .body().toString()).put("registeredAt", new JsonObject().put("$date", DateTimeMongoFormat.format(LocalDateTime.now()))), result -> {
+                        .body().toString()).put("registeredAt", new JsonObject().put("$date", DateTimeMongoFormat.format(LocalDateTime.now()))).put("available",Boolean.TRUE), result -> {
                 }));
     }
 
