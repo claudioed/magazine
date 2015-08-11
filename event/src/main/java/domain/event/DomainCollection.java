@@ -12,6 +12,8 @@ public enum  DomainCollection {
     CUSTOMERS,
 
     PRODUCTS,
+
+    ITEMS,
     
     DAILY_SALES,
     

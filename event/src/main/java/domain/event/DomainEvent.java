@@ -6,12 +6,14 @@ package domain.event;
  *  @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
 public enum DomainEvent {
-    
-    NEW_DELIVERY,
+
+    REGISTER_DELIVERY,
     
     NEW_CUSTOMER,
 
     NEW_PRODUCT,
+
+    REGISTER_DELIVERY_ITEM,
 
     NEW_FAVORITE_MAGAZINE,
     
