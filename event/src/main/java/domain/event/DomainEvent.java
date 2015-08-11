@@ -10,7 +10,9 @@ public enum DomainEvent {
     REGISTER_DELIVERY,
 
     REGISTER_SALE,
-    
+
+    REGISTER_GATHERING,
+
     NEW_CUSTOMER,
 
     NEW_PRODUCT,

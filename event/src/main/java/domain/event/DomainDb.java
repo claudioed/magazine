@@ -10,6 +10,8 @@ public enum  DomainDb {
     DELIVERY,
 
     SALE,
+
+    GATHERING,
     
     CUSTOMER;
     
