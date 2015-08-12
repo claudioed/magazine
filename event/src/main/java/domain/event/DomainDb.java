@@ -15,6 +15,8 @@ public enum  DomainDb {
     
     CUSTOMER,
 
+    STOCK,
+
     CUSTOMER_PREFERENCE;
     
     public String db(){
