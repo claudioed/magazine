@@ -20,9 +20,15 @@ import io.vertx.ext.web.handler.BodyHandler;
  */
 public class GatheringAPI extends AbstractVerticle {
 
+    private final Integer port;
+
+    public GatheringAPI(Integer port) {
+        this.port = port;
+    }
+
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new GatheringAPI());
+        vertx.deployVerticle(new GatheringAPI(9007));
     }
 
     @Override
@@ -51,7 +57,7 @@ public class GatheringAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(9002);
+        vertx.createHttpServer().requestHandler(router::accept).listen(port);
     }
 
 }
