@@ -52,8 +52,8 @@ public class ProductAPI extends AbstractVerticle {
                     ctx.response().end(json.encode());
                 }));
 
-        router.get("/api/product/barcode/:barcode").handler(
-                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject().put("barcode.plainBarcode",ctx.request().getParam("barcode")), lookup -> {
+        router.get("/api/product/barcode/:plainBarcode").handler(
+                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject().put("barcode.plainBarcode",ctx.request().getParam("plainBarcode")), lookup -> {
                     if (lookup.failed()) {
                         ctx.fail(lookup.cause());
                         return;
