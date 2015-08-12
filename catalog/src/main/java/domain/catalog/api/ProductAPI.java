@@ -63,10 +63,8 @@ public class ProductAPI extends AbstractVerticle {
                         ctx.response().end(new JsonObject().encode());
                         return;
                     }
-                    final JsonArray json = new JsonArray();
-                    lookup.result().forEach(json::add);
                     ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
-                    ctx.response().end(json.encode());
+                    ctx.response().end(lookup.result().get(0).encode());
                 }));
 
         router.post("/api/product").handler(ctx -> {
