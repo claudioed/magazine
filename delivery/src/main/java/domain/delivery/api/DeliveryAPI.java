@@ -29,7 +29,7 @@ public class DeliveryAPI extends AbstractVerticle {
     public void start() throws Exception {
 
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.DELIVERY.db(), DomainDb.DELIVERY.db()), DomainDb.DELIVERY.db());
+                new JsonObject().put("db_name", DomainDb.DELIVERY.db()), DomainDb.DELIVERY.db());
         final Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
 

@@ -22,7 +22,7 @@ public class RegisterGathering extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.GATHERING.db(), DomainDb.GATHERING.db()), DomainDb.GATHERING.db());
+                new JsonObject().put("db_name", DomainDb.GATHERING.db()), DomainDb.GATHERING.db());
         EventBus eventBus = vertx.eventBus();
         eventBus.consumer(DomainEvent.REGISTER_GATHERING.event(), message ->
                 mongoClient.insert(DomainCollection.GATHERINGS.collection(), new JsonObject(message

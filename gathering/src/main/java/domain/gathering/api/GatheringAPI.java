@@ -29,7 +29,7 @@ public class GatheringAPI extends AbstractVerticle {
     public void start() throws Exception {
 
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put(DomainDb.GATHERING.db(), DomainDb.GATHERING.db()), DomainDb.GATHERING.db());
+                new JsonObject().put("db_name", DomainDb.GATHERING.db()), DomainDb.GATHERING.db());
         final Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
 
