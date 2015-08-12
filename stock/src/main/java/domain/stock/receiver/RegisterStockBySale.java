@@ -28,7 +28,7 @@ public class RegisterStockBySale extends AbstractVerticle {
         eb.consumer(DomainEvent.REGISTER_ITEM_BY_SALE.event(), message -> {
             JsonObject saleItem = new JsonObject(message.body().toString());
             JsonObject query = new JsonObject().put("barcode.plainBarcode", saleItem.getString("plainBarcode"));
-            JsonObject update = new JsonObject().put("$set", new JsonObject().put("available", Boolean.FALSE));
+            JsonObject update = new JsonObject().put("$set", new JsonObject().put("available", Boolean.FALSE).put("sale",saleItem.getString("sale")));
             UpdateOptions options = new UpdateOptions().setMulti(false);
             mongoClient.updateWithOptions(DomainCollection.ITEMS.collection(),query,update,options,result ->{
                 if(result.failed()){

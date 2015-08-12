@@ -24,7 +24,7 @@ public class RegisterStockByGathering extends AbstractVerticle {
                 new JsonObject().put("db_name", DomainDb.STOCK.db()),
                 DomainDb.STOCK.db());
         EventBus eb = vertx.eventBus();
-        eb.consumer(DomainEvent.REGISTER_ITEM_BY_SALE.event(), message -> {
+        eb.consumer(DomainEvent.REGISTER_ITEM_BY_GATHERING.event(), message -> {
             JsonObject saleItem = new JsonObject(message.body().toString());
             JsonObject query = new JsonObject().put("barcode.plainBarcode", saleItem.getString("plainBarcode"));
             JsonObject update = new JsonObject().put("$set", new JsonObject().put("available", Boolean.FALSE));

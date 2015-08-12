@@ -31,7 +31,7 @@ public class RegisterSale extends AbstractVerticle {
                         LOGGER.info("Success on insert sale!!!");
                         mongoClient.findOne(
                                 DomainCollection.SALES.collection(),
-                                new JsonObject(),
+                                new JsonObject().put("_id",result.result()),
                                 new JsonObject(),
                                 saleResult -> {
                                     if (saleResult.failed()) {
