@@ -20,9 +20,15 @@ import io.vertx.ext.web.handler.BodyHandler;
  */
 public class SaleAPI extends AbstractVerticle {
 
+    private final Integer port;
+
+    public SaleAPI(Integer port) {
+        this.port = port;
+    }
+
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new SaleAPI());
+        vertx.deployVerticle(new SaleAPI(9006));
     }
 
     @Override
@@ -51,7 +57,7 @@ public class SaleAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(9002);
+        vertx.createHttpServer().requestHandler(router::accept).listen(port);
     }
 
 }
