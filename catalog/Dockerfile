@@ -1,26 +1,16 @@
-###
-# vert.x docker example using a Java verticle
-# To build:
-#  docker build -t sample/vertx-java .
-# To run:
-#   docker run -t -i -p 8080:8080 sample/vertx-java
-###
+FROM java:8                                                        
 
-# Extend vert.x image
-FROM vertx/vertx3
-
-ENV VERTICLE_NAME io.vertx.sample.hello.HelloVerticle
-ENV VERTICLE_FILE target/hello-verticle-3.0.0.jar
+ENV VERTICLE_FILE catalog-1.0-SNAPSHOT-fat.jar
 
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles
 
-EXPOSE 8080
+EXPOSE 9004
 
-# Copy your verticle to the container
-COPY $VERTICLE_FILE $VERTICLE_HOME/
+# Copy your fat jar to the container
+COPY target/$VERTICLE_FILE $VERTICLE_HOME/
 
 # Launch the verticle
 WORKDIR $VERTICLE_HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["vertx run $VERTICLE_NAME -cp $VERTICLE_HOME/*"]
+CMD ["java -jar $VERTICLE_FILE"]    
