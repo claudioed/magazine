@@ -16,7 +16,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.rxjava.ext.web.handler.CorsHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
@@ -41,9 +41,10 @@ public class ProductAPI extends AbstractVerticle {
                 new JsonObject().put("db_name", DomainDb.CATALOG.db()), DomainDb.CATALOG.poolName());
         final Router router = Router.router(vertx);
 
-        CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET).allowedMethod(HttpMethod.POST).allowedMethod(HttpMethod.OPTIONS).allowedHeader("Content-Type");
-
-        router.route().handler(BodyHandler.create());
+        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
+                .allowedMethod(HttpMethod.OPTIONS)
+                .allowedHeader("Content-Type"));
 
         router.get("/api/products").handler(
                 ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject(), lookup -> {

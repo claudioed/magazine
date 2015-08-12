@@ -9,11 +9,13 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
@@ -37,7 +39,11 @@ public class SaleAPI extends AbstractVerticle {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
                 new JsonObject().put("db_name", DomainDb.DELIVERY.db()), DomainDb.DELIVERY.poolName());
         final Router router = Router.router(vertx);
-        router.route().handler(BodyHandler.create());
+
+        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
+                .allowedMethod(HttpMethod.OPTIONS)
+                .allowedHeader("Content-Type"));
 
         router.get("/api/sales").handler(
                 ctx -> mongoClient.find(DomainCollection.SALES.collection(), new JsonObject(), lookup -> {
