@@ -1,5 +1,6 @@
 package server;
 
+import domain.stock.api.StockAPI;
 import domain.stock.receiver.RegisterStock;
 import domain.stock.receiver.RegisterStockByGathering;
 import domain.stock.receiver.RegisterStockBySale;
@@ -23,6 +24,7 @@ public class StockServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
+                vertx.deployVerticle(new StockAPI(9010));
                 vertx.deployVerticle(new RegisterStock());
                 vertx.deployVerticle(new RegisterStockByGathering());
                 vertx.deployVerticle(new RegisterStockBySale());
@@ -35,7 +37,6 @@ public class StockServer {
                 LOGGER.error("*************************************************************");
             }
         });
-
     }
 
 }
