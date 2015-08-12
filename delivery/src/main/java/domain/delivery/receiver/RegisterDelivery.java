@@ -23,7 +23,7 @@ public class RegisterDelivery extends AbstractVerticle {
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
                 new JsonObject().put("db_name", DomainDb.CUSTOMER.db()),
-                DomainDb.CUSTOMER.db());
+                DomainDb.CUSTOMER.poolName());
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.REGISTER_DELIVERY.event(), message ->
                 mongoClient.insert(DomainCollection.DELIVERIES.collection(), new JsonObject(message

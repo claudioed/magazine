@@ -23,4 +23,8 @@ public enum  DomainDb {
         return this.name();
     }
 
+    public String poolName(){
+        return this.name() + "-POOL";
+    }
+
 }

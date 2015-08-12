@@ -20,7 +20,7 @@ public class RegisterProduct extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put("db_name", DomainDb.CATALOG.db()), DomainDb.CATALOG.db());
+                new JsonObject().put("db_name", DomainDb.CATALOG.db()), DomainDb.CATALOG.poolName());
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.NEW_PRODUCT.event(), message ->
                 mongoClient.insert(DomainCollection.PRODUCTS.collection(), new JsonObject(message.body().toString()), result -> {
