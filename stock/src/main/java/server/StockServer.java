@@ -5,6 +5,8 @@ import domain.stock.receiver.RegisterStockByGathering;
 import domain.stock.receiver.RegisterStockBySale;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 /**
  * 
@@ -14,11 +16,26 @@ import io.vertx.core.VertxOptions;
  */
 public class StockServer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StockServer.class);
+
     public static void main(String[] args) {
-        Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new RegisterStock());
-        vertx.deployVerticle(new RegisterStockByGathering());
-        vertx.deployVerticle(new RegisterStockBySale());
+        VertxOptions options = new VertxOptions();
+        Vertx.clusteredVertx(options, res -> {
+            if (res.succeeded()) {
+                Vertx vertx = res.result();
+                vertx.deployVerticle(new RegisterStock());
+                vertx.deployVerticle(new RegisterStockByGathering());
+                vertx.deployVerticle(new RegisterStockBySale());
+                LOGGER.info("***************************************");
+                LOGGER.info(" Stock Server Connected on cluster !!!");
+                LOGGER.info("***************************************");
+            } else {
+                LOGGER.error("*************************************************************");
+                LOGGER.error(" Stock Server Failed on connect on cluster : " + res.cause());
+                LOGGER.error("*************************************************************");
+            }
+        });
+
     }
 
 }
