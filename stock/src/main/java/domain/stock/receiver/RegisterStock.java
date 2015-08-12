@@ -39,7 +39,7 @@ public class RegisterStock extends AbstractVerticle {
                                     JsonObject update = new JsonObject().put("$set", new JsonObject().put("name", product.getString("name")));
                                     mongoClient.update(DomainCollection.ITEMS.collection(),query,update,updateResult ->{
                                         if(updateResult.succeeded()){
-                                            LOGGER.info("Success on update stock item !!! ");
+                                            LOGGER.info("Success on update name in stock item !!! ");
                                         }
                                     });
                                 });
