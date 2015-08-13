@@ -16,6 +16,8 @@
         <module>event</module>
         <module>gathering</module>
         <module>sales</module>
+        <module>web</module>
+        <module>dashboard</module>
     </modules>
     <packaging>pom</packaging>
 
