@@ -17,6 +17,8 @@ public enum  DomainDb {
 
     STOCK,
 
+    DASHBOARD,
+
     CUSTOMER_PREFERENCE;
     
     public String db(){

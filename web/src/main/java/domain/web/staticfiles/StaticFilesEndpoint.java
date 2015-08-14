@@ -1,12 +1,12 @@
+
 package domain.web.staticfiles;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.ext.web.handler.CorsHandler;
+
+import java.io.File;
 
 /**
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
@@ -27,11 +27,8 @@ public class StaticFilesEndpoint extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         final Router router = Router.router(vertx);
-        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
-                .allowedMethod(HttpMethod.POST)
-                .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type"));
-        router.get("/").handler( ctx -> ctx.response().sendFile("app/index.html"));
+        router.get("/").handler(ctx -> ctx.request().response().sendFile("webroot/index.html"));
+        router.get("/**.*\\.(css|js)$").handler(ctx -> ctx.request().response().sendFile("webroot/" + new File(ctx.request().path())));
         vertx.createHttpServer().requestHandler(router::accept).listen(port);
     }
 
