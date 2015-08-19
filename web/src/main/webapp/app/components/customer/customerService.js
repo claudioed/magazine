@@ -2,13 +2,13 @@
     'use strict';
 
     /* Services */
-    angular.module('magazine.modules.Product.services', []).
-        service('ProductService', ['$http',
+    angular.module('magazine.modules.Customer.services', []).
+        service('CustomerService', ['$http',
             function ($http) {
 
-                var urlCollections = '/api/products';
-                var urlBase = '/api/product/';
-
+                var urlCollections = '/api/customers';
+                var urlBase = '/api/customer/';
+                
                 this.find = function () {
                     return $http.get(urlCollections);
                 };
