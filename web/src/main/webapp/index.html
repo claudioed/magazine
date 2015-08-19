@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head lang="en">
     <meta charset="utf-8">
     <title>Banca Monte Castelo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="magazine">
 
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -24,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">Monte Castelo</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -50,6 +48,8 @@
 
     <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
 
+    <div ui-view></div>
+
 </div>
 
 <!-- Footer -->
@@ -61,5 +61,13 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/controllers.js"></script>
+<script type="text/javascript" src="app/services.js"></script>
+<script type="text/javascript" src="app/components/sale/saleController.js"></script>
+<script type="text/javascript" src="app/components/sale/saleService.js"></script>
+
 </body>
 </html>
