@@ -16,6 +16,14 @@
             url:'/create-delivery',
             templateUrl:'app/components/delivery/view/delivery.html',
             controller:'DeliveryCreateController'
+        }).state('products',{
+            url:'/products',
+            templateUrl:'app/components/product/view/products.html',
+            controller:'ProductListController'
+        }).state('gatherings',{
+            url:'/gatherings',
+            templateUrl:'app/components/gathering/view/gatherings.html',
+            controller:'GatheringListController'
         }).state('deliveries',{
             url:'/deliveries',
             templateUrl:'app/components/delivery/view/deliveries.html',
