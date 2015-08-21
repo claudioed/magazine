@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h1>Nova Entrega</h1>
+</div>
+<div class="row">
+    <div class="container">
+        <form name="deliveryForm" ng-submit="submitForm(deliveryForm.$valid)" novalidate>
+
+            <div class="form-group">
+                <label>Código de Barras</label>
+                <input type="text" name="plainBarcode" class="form-control" ng-model="plainBarcode" ng-blur="addItem()">
+            </div>
+
+            <div class="form-group">
+                <label>Itens da Entrega</label>
+                <table class="table table-hover">
+                    <tr ng-repeat="item in delivery.items">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ item.plainBarcode }}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            
+        </form>
+    </div>
+</div>
+
+
+
+
+
+

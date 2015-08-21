@@ -6,8 +6,9 @@
         service('DeliveryService', ['$http',
             function ($http) {
 
-                var urlCollections = '/api/deliveries';
-                var urlBase = '/api/delivery/';
+                var serviceAddress = 'http://localhost:9007';
+                var urlCollections = serviceAddress + '/api/deliveries';
+                var urlBase = serviceAddress +'/api/delivery/';
 
                 this.find = function () {
                     return $http.get(urlCollections);

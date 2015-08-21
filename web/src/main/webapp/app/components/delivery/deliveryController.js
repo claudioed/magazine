@@ -8,18 +8,29 @@
         ['$scope', 'DeliveryService',
             function ($scope, DeliveryService) {
 
+                $scope.delivery = {};
+                $scope.delivery.items = [];
+
+                $scope.addItem = function(){
+                    $scope.delivery.items.push({plainBarcode: $scope.plainBarcode});
+                    $scope.plainBarcode = null;
+                };
+                
                 $scope.resetForm = function () {
-                    $scope.delivery = null;
+                    $scope.delivery.items = null;
                 };
 
-                $scope.create = function (delivery) {
-                    DeliveryService.create(delivery).then(
-                        function (data) {
-                            console.log("Success on create Delivery!!!")
-                        }, function (err) {
-                            console.log("Error on create Delivery!!!")
-                        });
+                $scope.submitForm = function(isValid) {
+                    if (isValid) {
+                        DeliveryService.create($scope.delivery).then(
+                            function (data) {
+                                console.log("Success on create Delivery!!!")
+                            }, function (err) {
+                                console.log("Error on create Delivery!!!")
+                            });
+                    }
                 };
+                
             }]).
 
         controller('DeliveryListController',
