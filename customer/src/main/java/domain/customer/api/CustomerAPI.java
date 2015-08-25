@@ -43,7 +43,7 @@ public class CustomerAPI extends AbstractVerticle {
         router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type"));
+                .allowedHeader("Content-Type")).handler(BodyHandler.create());
 
         router.get("/api/customers").handler(
                 ctx -> mongoClient.find(DomainCollection.CUSTOMERS.collection(), new JsonObject(), lookup -> {

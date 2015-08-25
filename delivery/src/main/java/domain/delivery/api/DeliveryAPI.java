@@ -38,7 +38,13 @@ public class DeliveryAPI extends AbstractVerticle {
 
         final MongoClient mongoClient = MongoClient.createShared(vertx,
                 new JsonObject().put("db_name", DomainDb.DELIVERY.db()), DomainDb.DELIVERY.poolName());
+
         final Router router = Router.router(vertx);
+
+        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
+                .allowedMethod(HttpMethod.OPTIONS)
+                .allowedHeader("Content-Type")).handler(BodyHandler.create());
 
         router.get("/api/deliveries").handler(
                 ctx -> mongoClient.find(DomainCollection.DELIVERIES.collection(), new JsonObject(), lookup -> {

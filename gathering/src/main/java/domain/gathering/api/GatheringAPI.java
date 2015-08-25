@@ -43,7 +43,7 @@ public class GatheringAPI extends AbstractVerticle {
         router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type"));
+                .allowedHeader("Content-Type")).handler(BodyHandler.create());
 
         router.get("/api/gatherings").handler(
                 ctx -> mongoClient.find(DomainCollection.GATHERINGS.collection(), new JsonObject(), lookup -> {

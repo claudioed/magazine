@@ -39,12 +39,13 @@ public class ProductAPI extends AbstractVerticle {
 
         final MongoClient mongoClient = MongoClient.createShared(vertx,
                 new JsonObject().put("db_name", DomainDb.CATALOG.db()), DomainDb.CATALOG.poolName());
+
         final Router router = Router.router(vertx);
 
         router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type"));
+                .allowedHeader("Content-Type")).handler(BodyHandler.create());
 
         router.get("/api/products").handler(
                 ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject(), lookup -> {
