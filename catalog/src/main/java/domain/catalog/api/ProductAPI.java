@@ -6,6 +6,7 @@ import domain.event.DomainDb;
 import domain.event.DomainEvent;
 import infra.web.MediaType;
 import infra.wrapper.ProductWrapper;
+import infra.wrapper.UpdateProductWrapper;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -74,6 +75,13 @@ public class ProductAPI extends AbstractVerticle {
 
         router.post("/api/product").handler(ctx -> {
             vertx.eventBus().publish(DomainEvent.NEW_PRODUCT.event(), new ProductWrapper(ctx.getBodyAsJson()).toJson());
+            ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+            ctx.response().end();
+        });
+
+        router.put("/api/product/:id").handler(ctx -> {
+            String productId = ctx.request().getParam("id");
+            vertx.eventBus().publish(DomainEvent.UPDATE_PRODUCT.event(), new UpdateProductWrapper(ctx.getBodyAsJson(),productId).toJson());
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
             ctx.response().end();
         });
