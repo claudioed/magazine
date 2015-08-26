@@ -23,7 +23,7 @@ public class CatalogServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
-                vertx.deployVerticle(new ProductAPI(9004));
+                vertx.deployVerticle(new ProductAPI());
                 vertx.deployVerticle(new RegisterProduct());
                 vertx.deployVerticle(new NewProductByDelivery());
                 LOGGER.info("***************************************");
