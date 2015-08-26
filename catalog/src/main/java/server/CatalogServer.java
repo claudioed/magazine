@@ -1,6 +1,7 @@
 package server;
 
 import domain.catalog.api.ProductAPI;
+import domain.catalog.receiver.NewProductByDelivery;
 import domain.catalog.receiver.RegisterProduct;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -24,6 +25,7 @@ public class CatalogServer {
                 Vertx vertx = res.result();
                 vertx.deployVerticle(new ProductAPI(9004));
                 vertx.deployVerticle(new RegisterProduct());
+                vertx.deployVerticle(new NewProductByDelivery());
                 LOGGER.info("***************************************");
                 LOGGER.info(" Catalog Server Connected on cluster !!!");
                 LOGGER.info("***************************************");

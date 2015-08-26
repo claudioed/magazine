@@ -20,6 +20,10 @@
             url:'/products',
             templateUrl:'app/components/product/view/products.html',
             controller:'ProductListController'
+        }).state('edit-product',{
+            url:'/edit-product',
+            templateUrl:'app/components/product/view/product.html',
+            controller:'ProductEditController'
         }).state('gatherings',{
             url:'/gatherings',
             templateUrl:'app/components/gathering/view/gatherings.html',

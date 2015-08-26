@@ -12,8 +12,10 @@
                 $scope.delivery.items = [];
 
                 $scope.addItem = function(){
-                    $scope.delivery.items.push({plainBarcode: $scope.plainBarcode});
-                    $scope.plainBarcode = null;
+                    if($scope.plainBarcode){
+                        $scope.delivery.items.push({plainBarcode: $scope.plainBarcode});
+                        $scope.plainBarcode = null;
+                    }
                 };
                 
                 $scope.resetForm = function () {

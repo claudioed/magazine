@@ -4,7 +4,7 @@
     // Controllers
     angular.module('magazine.modules.Product.controllers', []).
 
-        controller('ProductCreateController',
+        controller('ProductEditController',
         ['$scope', 'ProductService',
             function ($scope, ProductService) {
 

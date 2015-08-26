@@ -39,11 +39,15 @@ public class StockAPI extends AbstractVerticle {
                 new JsonObject().put("db_name", DomainDb.STOCK.db()), DomainDb.STOCK.poolName());
         final Router router = Router.router(vertx);
 
-        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+        final CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type")).handler(BodyHandler.create());
+                .allowedHeader("Content-Type")
+                .allowedHeader("Access-Control-Allow-Origin");
 
+        router.route().handler(corsHandler);
+        router.route().handler(BodyHandler.create());
+        
         router.get("/api/items").handler(
                 ctx -> mongoClient.find(DomainCollection.ITEMS.collection(), new JsonObject(), lookup -> {
                     if (lookup.failed()) {

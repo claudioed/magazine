@@ -6,10 +6,12 @@ import domain.event.DomainEvent;
 import infra.web.MediaType;
 import infra.wrapper.DeliveryWrapper;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
@@ -41,10 +43,14 @@ public class DeliveryAPI extends AbstractVerticle {
 
         final Router router = Router.router(vertx);
 
-        router.route().handler(BodyHandler.create()).handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+        final CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
-                .allowedHeader("Content-Type")).handler(BodyHandler.create());
+                .allowedHeader("Content-Type")
+                .allowedHeader("Access-Control-Allow-Origin");
+
+        router.route().handler(corsHandler);
+        router.route().handler(BodyHandler.create());
 
         router.get("/api/deliveries").handler(
                 ctx -> mongoClient.find(DomainCollection.DELIVERIES.collection(), new JsonObject(), lookup -> {
@@ -66,5 +72,6 @@ public class DeliveryAPI extends AbstractVerticle {
 
         vertx.createHttpServer().requestHandler(router::accept).listen(port);
     }
+
 
 }
