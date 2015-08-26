@@ -6,12 +6,10 @@ import domain.event.DomainEvent;
 import infra.web.MediaType;
 import infra.wrapper.DeliveryWrapper;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
@@ -24,15 +22,10 @@ import io.vertx.ext.web.handler.CorsHandler;
  */
 public class DeliveryAPI extends AbstractVerticle {
 
-    private final Integer port;
-
-    public DeliveryAPI(Integer port) {
-        this.port = port;
-    }
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new DeliveryAPI(9007));
+        vertx.deployVerticle(new DeliveryAPI());
     }
 
     @Override
@@ -70,7 +63,7 @@ public class DeliveryAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8007));
     }
 
 

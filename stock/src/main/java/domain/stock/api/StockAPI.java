@@ -21,15 +21,9 @@ import io.vertx.ext.web.handler.CorsHandler;
  */
 public class StockAPI extends AbstractVerticle {
 
-    private final Integer port;
-
-    public StockAPI(Integer port) {
-        this.port = port;
-    }
-
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new StockAPI(9010));
+        vertx.deployVerticle(new StockAPI());
     }
 
     @Override
@@ -77,7 +71,7 @@ public class StockAPI extends AbstractVerticle {
                     ctx.response().end(resultArray.encode());
                 }));
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8010));
         
     }
 

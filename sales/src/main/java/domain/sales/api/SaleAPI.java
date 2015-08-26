@@ -22,15 +22,9 @@ import io.vertx.ext.web.handler.CorsHandler;
  */
 public class SaleAPI extends AbstractVerticle {
 
-    private final Integer port;
-
-    public SaleAPI(Integer port) {
-        this.port = port;
-    }
-
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new SaleAPI(9006));
+        vertx.deployVerticle(new SaleAPI());
     }
 
     @Override
@@ -63,7 +57,7 @@ public class SaleAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8006));
     }
 
 }

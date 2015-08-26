@@ -22,7 +22,7 @@ public class DeliveryServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
-                vertx.deployVerticle(new DeliveryAPI(9007));
+                vertx.deployVerticle(new DeliveryAPI());
                 vertx.deployVerticle(new RegisterDelivery());
                 LOGGER.info("***************************************");
                 LOGGER.info(" Delivery Server Connected on cluster !!!");

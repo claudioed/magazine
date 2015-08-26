@@ -22,7 +22,7 @@ public class SaleServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
-                vertx.deployVerticle(new SaleAPI(9006));
+                vertx.deployVerticle(new SaleAPI());
                 vertx.deployVerticle(new RegisterSale());
                 LOGGER.info("***************************************");
                 LOGGER.info(" Sale Server Connected on cluster !!!");
