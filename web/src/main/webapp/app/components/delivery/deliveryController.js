@@ -39,7 +39,7 @@
         ['$scope', 'DeliveryService',
             function ($scope, DeliveryService) {
                 DeliveryService.find().then(function (data) {
-                    $scope.deliveries = data;
+                    $scope.deliveries = data.data;
                 }, function (err) {
                     console.log(err);
                 });

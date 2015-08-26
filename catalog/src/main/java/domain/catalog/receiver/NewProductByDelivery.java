@@ -28,7 +28,7 @@ public class NewProductByDelivery extends AbstractVerticle {
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.REGISTER_DELIVERY_ITEM.event(), message -> {
             JsonObject item = new JsonObject(message.body().toString());
-            mongoClient.findOne(DomainCollection.PRODUCTS.collection(),new JsonObject().put("barcode.barcode",item.getJsonObject("barcode").getString("barcode")),new JsonObject(),res ->{
+            mongoClient.findOne(DomainCollection.PRODUCTS.collection(),new JsonObject().put("barcode",item.getJsonObject("barcode").getString("barcode")),new JsonObject(),res ->{
                 if(res.failed() || res.result() == null){
                     JsonObject product = new JsonObject().put("barcode", item.getJsonObject("barcode").getString("barcode")).put("registeredAt", new JsonObject().put("$date", DateTimeMongoFormat.format(LocalDateTime.now())));
                     mongoClient.insert(DomainCollection.PRODUCTS.collection(), product, result -> {

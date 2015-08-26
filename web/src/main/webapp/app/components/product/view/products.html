@@ -4,6 +4,24 @@
 
 <div class="row">
     <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cod. Barras</th>
+                    <th>Nome</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ product.barcode }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>Editar</td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
 </div>

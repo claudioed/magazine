@@ -26,7 +26,7 @@
         ['$scope', 'ProductService',
             function ($scope, ProductService) {
                 ProductService.find().then(function (data) {
-                    $scope.products = data;
+                    $scope.products = data.data;
                 }, function (err) {
                     console.log(err);
                 });

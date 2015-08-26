@@ -22,7 +22,7 @@
             controller:'ProductListController'
         }).state('edit-product',{
             url:'/edit-product',
-            templateUrl:'app/components/product/view/product.html',
+            templateUrl:'app/components/product/view/edit-product.html',
             controller:'ProductEditController'
         }).state('gatherings',{
             url:'/gatherings',
