@@ -6,7 +6,9 @@ package infra.integration;
  */
 public enum Services {
 
-    CATALOG(9004,"localhost");
+    CATALOG(9004,"localhost"),
+
+    CUSTOMER(9005,"localhost");
 
     private final int port;
 
