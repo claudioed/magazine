@@ -1,5 +1,5 @@
 
-package domain.customer.preference.receiver;
+package domain.customer.receiver;
 
 import domain.event.DomainCollection;
 import domain.event.DomainDb;

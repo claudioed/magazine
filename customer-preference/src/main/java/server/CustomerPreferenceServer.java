@@ -1,6 +1,6 @@
 package server;
 
-import domain.customer.preference.receiver.NotifyCustomerDelivery;
+import domain.customer.receiver.NotifyCustomerDelivery;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.logging.Logger;

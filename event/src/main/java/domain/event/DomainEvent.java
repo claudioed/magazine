@@ -15,6 +15,8 @@ public enum DomainEvent {
 
     NEW_CUSTOMER,
 
+    NEW_CUSTOMER_PREFERENCE,
+
     NEW_PRODUCT,
 
     REGISTER_DELIVERY_ITEM,
