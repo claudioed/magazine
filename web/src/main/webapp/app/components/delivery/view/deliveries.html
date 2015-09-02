@@ -17,6 +17,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ delivery.code }}</td>
                 <td>{{ delivery.creationAt | date:'medium' }}</td>
+                <td><a href="#delivery/{{delivery._id}}" class="btn btn-default btn-xs">Detalhes</a></td>
             </tr>
             </tbody>
         </table>

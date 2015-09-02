@@ -24,7 +24,7 @@ public class StockServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
-                vertx.deployVerticle(new StockAPI(9010));
+                vertx.deployVerticle(new StockAPI());
                 vertx.deployVerticle(new RegisterStock());
                 vertx.deployVerticle(new RegisterStockByGathering());
                 vertx.deployVerticle(new RegisterStockBySale());

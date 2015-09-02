@@ -86,7 +86,7 @@ public class ProductAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8004));
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 9004));
         
     }
 

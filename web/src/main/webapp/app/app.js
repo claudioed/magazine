@@ -32,6 +32,10 @@
             url:'/deliveries',
             templateUrl:'app/components/delivery/view/deliveries.html',
             controller:'DeliveryListController'
+        }).state('delivery-detail',{
+            url:'/delivery/:id',
+            templateUrl:'app/components/delivery/view/delivery.html',
+            controller:'DeliveryDetailController'
         });
 
     }).run(function($state){

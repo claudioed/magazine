@@ -57,13 +57,28 @@ public class DeliveryAPI extends AbstractVerticle {
                     ctx.response().end(json.encode());
                 }));
 
+        router.get("/api/delivery/:id").handler(
+                ctx -> mongoClient.findOne(DomainCollection.DELIVERIES.collection(), new JsonObject().put("_id", ctx.request().getParam("id")), new JsonObject(), lookup -> {
+                    if (lookup.failed()) {
+                        ctx.fail(lookup.cause());
+                        return;
+                    }
+                    if (lookup.result() == null || lookup.result().isEmpty()) {
+                        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                        ctx.response().setStatusCode(404).end();
+                    } else {
+                        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                        ctx.response().end(lookup.result().encode());
+                    }
+                }));
+
         router.post("/api/delivery").handler(ctx -> {
             vertx.eventBus().publish(DomainEvent.REGISTER_DELIVERY.event(), new DeliveryWrapper(ctx.getBodyAsJson()).toJson());
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8007));
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 9007));
     }
 
 

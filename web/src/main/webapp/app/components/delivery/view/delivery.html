@@ -1,31 +1,32 @@
 <div class="page-header">
-    <h1>Nova Entrega</h1>
+    <h1>Entrega {{delivery.code}}</h1>
+    <h4>Data: {{ delivery.creationAt.$date | date:'medium' }}</h4>
 </div>
 <div class="row">
     <div class="container">
-        <form name="deliveryForm" ng-submit="submitForm(deliveryForm.$valid)" novalidate>
-
-            <div class="form-group">
-                <label>Código de Barras</label>
-                <input type="text" name="plainBarcode" class="form-control" ng-model="plainBarcode" ng-blur="addItem()">
-            </div>
-
-            <div class="form-group">
-                <label>Itens da Entrega</label>
-                <table class="table table-hover">
-                    <tr ng-repeat="item in delivery.items">
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ item.plainBarcode }}</td>
-                    </tr>
-                </table>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            
-        </form>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Qtde</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in delivery.items">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.barcode.plainBarcode }}</td>
+                <td>1</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
+<div class="row">
+    <div class="container">
+        <a href="#deliveries" class="btn btn-default">Entregas</a>
+    </div>
+</div>
 
 
 
