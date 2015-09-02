@@ -4,6 +4,7 @@ import domain.stock.api.StockAPI;
 import domain.stock.receiver.RegisterStock;
 import domain.stock.receiver.RegisterStockByGathering;
 import domain.stock.receiver.RegisterStockBySale;
+import domain.stock.receiver.UpdateStockInfo;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.logging.Logger;
@@ -28,6 +29,7 @@ public class StockServer {
                 vertx.deployVerticle(new RegisterStock());
                 vertx.deployVerticle(new RegisterStockByGathering());
                 vertx.deployVerticle(new RegisterStockBySale());
+                vertx.deployVerticle(new UpdateStockInfo());
                 LOGGER.info("***************************************");
                 LOGGER.info(" Stock Server Connected on cluster !!!");
                 LOGGER.info("***************************************");

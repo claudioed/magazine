@@ -13,6 +13,9 @@ import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.mongo.UpdateOptions;
 
 /**
+ * This receiver is responsible to make unavailable stock when this stock was
+ * used in a sale.
+ *
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
 public class RegisterStockBySale extends AbstractVerticle {
