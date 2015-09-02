@@ -1,0 +1,34 @@
+<div class="page-header">
+    <h1>Editar Produto</h1>
+</div>
+<div class="row">
+    <div class="container">
+        <form name="productForm" ng-submit="edit(productForm.$valid)" novalidate>
+
+            <div class="form-group">
+                <label>Código de Barras</label>
+                <h4><strong>{{product.barcode}}</strong></h4>
+            </div>
+
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" name="product.name" class="form-control" ng-model="product.name"/>
+            </div>
+
+            <div class="form-group">
+                <label>Preço</label>
+                <input type="text" name="product.price" class="form-control" ng-model="product.price"/>
+            </div>
+
+            <a href="#products" class="btn btn-default">Voltar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+

@@ -23,7 +23,7 @@
                 };
 
                 this.update = function (data) {
-                    return $http.put(urlBase + '/id/' + data._id, data);
+                    return $http.put(urlBase + data._id, data);
                 };
 
                 this.remove = function (data) {

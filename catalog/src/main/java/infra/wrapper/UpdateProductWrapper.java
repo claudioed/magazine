@@ -23,7 +23,7 @@ public class UpdateProductWrapper extends AbstractWrapper<JsonObject>{
         validJson.put("id",id);
         validJson.put("updatedAt", new JsonObject().put("$date", DateTimeMongoFormat.format(LocalDateTime.now())));
         validJson.put("name",toConvert.getString("name"));
-        validJson.put("price",toConvert.getDouble("price"));
+        validJson.put("price",Double.valueOf(toConvert.getString("price")));
         return validJson;
     }
 

@@ -21,7 +21,7 @@
             templateUrl:'app/components/product/view/products.html',
             controller:'ProductListController'
         }).state('edit-product',{
-            url:'/edit-product',
+            url:'/edit-product/:productId',
             templateUrl:'app/components/product/view/edit-product.html',
             controller:'ProductEditController'
         }).state('gatherings',{

@@ -5,19 +5,28 @@
     angular.module('magazine.modules.Product.controllers', []).
 
         controller('ProductEditController',
-        ['$scope', 'ProductService',
-            function ($scope, ProductService) {
+        ['$scope', '$stateParams','ProductService',
+            function ($scope,$stateParams, ProductService) {
 
+                var id = $stateParams.productId;
+                ProductService.findOne(id).then(function (result) {
+                    $scope.product = result.data;
+                    console.log($scope.product);
+                }, function (err) {
+                    console.log(err);
+                });
+                
                 $scope.resetForm = function () {
-                    $scope.product = null;
+                    $scope.product.name = null;
+                    $scope.product.price = null;
                 };
 
-                $scope.create = function (product) {
-                    ProductService.create(product).then(
+                $scope.edit = function (productForm) {
+                    ProductService.update($scope.product).then(
                         function (data) {
-                            console.log("Success on create Product!!!")
+                            console.log("Success on update Product!!!")
                         }, function (err) {
-                            console.log("Error on create Product!!!")
+                            console.log("Error on update Product!!!")
                         });
                 };
             }]).

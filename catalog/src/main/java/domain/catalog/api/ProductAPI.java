@@ -37,8 +37,10 @@ public class ProductAPI extends AbstractVerticle {
 
         final Router router = Router.router(vertx);
 
-        final CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+        final CorsHandler corsHandler = CorsHandler.create("*")
+                .allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
+                .allowedMethod(HttpMethod.PUT)
                 .allowedMethod(HttpMethod.OPTIONS)
                 .allowedHeader("Content-Type")
                 .allowedHeader("Access-Control-Allow-Origin");
@@ -58,12 +60,27 @@ public class ProductAPI extends AbstractVerticle {
                     ctx.response().end(json.encode());
                 }));
 
-        router.get("/api/product/barcode/:plainBarcode").handler(
-                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject().put("barcode.plainBarcode",ctx.request().getParam("plainBarcode")), lookup -> {
+        router.get("/api/product/:id").handler(
+                ctx -> mongoClient.findOne(DomainCollection.PRODUCTS.collection(), new JsonObject().put("_id", ctx.request().getParam("id")), new JsonObject(), lookup -> {
                     if (lookup.failed()) {
                         ctx.fail(lookup.cause());
                         return;
-                    }else if(lookup.result().isEmpty()){
+                    }
+                    if (lookup.result() == null || lookup.result().isEmpty()) {
+                        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                        ctx.response().setStatusCode(404).end();
+                    } else {
+                        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                        ctx.response().end(lookup.result().encode());
+                    }
+                }));
+
+        router.get("/api/product/barcode/:plainBarcode").handler(
+                ctx -> mongoClient.find(DomainCollection.PRODUCTS.collection(), new JsonObject().put("barcode.plainBarcode", ctx.request().getParam("plainBarcode")), lookup -> {
+                    if (lookup.failed()) {
+                        ctx.fail(lookup.cause());
+                        return;
+                    } else if (lookup.result().isEmpty()) {
                         ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
                         ctx.response().setStatusCode(404);
                         ctx.response().end(new JsonObject().encode());
@@ -81,13 +98,13 @@ public class ProductAPI extends AbstractVerticle {
 
         router.put("/api/product/:id").handler(ctx -> {
             String productId = ctx.request().getParam("id");
-            vertx.eventBus().publish(DomainEvent.UPDATE_PRODUCT.event(), new UpdateProductWrapper(ctx.getBodyAsJson(),productId).toJson());
+            vertx.eventBus().publish(DomainEvent.UPDATE_PRODUCT.event(), new UpdateProductWrapper(ctx.getBodyAsJson(), productId).toJson());
             ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
             ctx.response().end();
         });
 
         vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 9004));
-        
+
     }
 
 }

@@ -27,7 +27,7 @@ public class UpdateProductInfo extends AbstractVerticle {
         eb.consumer(DomainEvent.UPDATE_PRODUCT.event(), message -> {
             JsonObject updatedProduct = new JsonObject(message.body().toString());
             JsonObject query = new JsonObject().put("_id", updatedProduct.getString("id"));
-            JsonObject update = new JsonObject().put("$set", new JsonObject().put("name", updatedProduct.getString("id")).put("price",updatedProduct.getDouble("price")));
+            JsonObject update = new JsonObject().put("$set", new JsonObject().put("name", updatedProduct.getString("name")).put("price",updatedProduct.getDouble("price")));
             mongoClient.update(DomainCollection.PRODUCTS.collection(),query,update,result ->{
                 if(result.failed()){
                     LOGGER.error("Error on update product info !!! Any rows affected !!!");
