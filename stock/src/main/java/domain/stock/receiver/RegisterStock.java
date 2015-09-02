@@ -24,7 +24,7 @@ public class RegisterStock extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put("db_name", DomainDb.STOCK.db()), DomainDb.STOCK.db());
+                new JsonObject().put("db_name", DomainDb.STOCK.db()), DomainDb.STOCK.poolName());
         EventBus eb = vertx.eventBus();
         eb.consumer(DomainEvent.REGISTER_DELIVERY_ITEM.event(), message ->{
                 JsonObject item = new JsonObject(message.body().toString());

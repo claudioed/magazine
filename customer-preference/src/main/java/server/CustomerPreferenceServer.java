@@ -1,6 +1,8 @@
 package server;
 
+import domain.customer.api.CustomerPreferenceAPI;
 import domain.customer.receiver.NotifyCustomerDelivery;
+import domain.customer.receiver.RegisterCustomerPreference;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.logging.Logger;
@@ -21,7 +23,9 @@ public class CustomerPreferenceServer {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
+                vertx.deployVerticle(new CustomerPreferenceAPI());
                 vertx.deployVerticle(new NotifyCustomerDelivery());
+                vertx.deployVerticle(new RegisterCustomerPreference());
                 LOGGER.info("****************************************************");
                 LOGGER.info(" Customer Preference Server Connected on cluster !!!");
                 LOGGER.info("****************************************************");

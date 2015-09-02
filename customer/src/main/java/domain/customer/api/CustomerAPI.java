@@ -35,7 +35,9 @@ public class CustomerAPI extends AbstractVerticle {
                 new JsonObject().put("db_name", DomainDb.CUSTOMER.db()), DomainDb.CUSTOMER.poolName());
         final Router router = Router.router(vertx);
 
-        final CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+        final CorsHandler corsHandler = CorsHandler.create("*")
+                .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.PUT)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
                 .allowedHeader("Content-Type")

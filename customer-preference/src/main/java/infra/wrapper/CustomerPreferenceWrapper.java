@@ -20,6 +20,7 @@ public class CustomerPreferenceWrapper extends AbstractWrapper<JsonObject>{
         validJson.put("creationAt", new JsonObject().put("$date", DateTimeMongoFormat.format(LocalDateTime.now())));
         validJson.put("name",toConvert.getString("name"));
         validJson.put("email",toConvert.getString("email"));
+        validJson.put("barcode",toConvert.getString("barcode"));
         return validJson;
     }
 

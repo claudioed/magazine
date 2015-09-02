@@ -23,15 +23,9 @@ import io.vertx.ext.web.handler.CorsHandler;
  */
 public class CustomerPreferenceAPI extends AbstractVerticle {
 
-    private final Integer port;
-
-    public CustomerPreferenceAPI(Integer port) {
-        this.port = port;
-    }
-
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx(new VertxOptions());
-        vertx.deployVerticle(new CustomerPreferenceAPI(9011));
+        vertx.deployVerticle(new CustomerPreferenceAPI());
     }
 
     @Override
@@ -41,7 +35,9 @@ public class CustomerPreferenceAPI extends AbstractVerticle {
                 new JsonObject().put("db_name", DomainDb.CUSTOMER_PREFERENCE.db()), DomainDb.CUSTOMER_PREFERENCE.poolName());
         final Router router = Router.router(vertx);
 
-        final CorsHandler corsHandler = CorsHandler.create("*").allowedMethod(HttpMethod.GET)
+        final CorsHandler corsHandler = CorsHandler.create("*")
+                .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.PUT)
                 .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
                 .allowedHeader("Content-Type")
@@ -68,7 +64,7 @@ public class CustomerPreferenceAPI extends AbstractVerticle {
             ctx.response().end();
         });
 
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
+        vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 9011));
         
     }
 
