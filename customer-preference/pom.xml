@@ -35,6 +35,11 @@
         </dependency>
 
         <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-mail-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.claudioliveira</groupId>
             <artifactId>event</artifactId>
             <version>${project.parent.version}</version>
