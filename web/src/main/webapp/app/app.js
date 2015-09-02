@@ -14,7 +14,7 @@
             controller:'SaleListController'
         }).state('create-delivery',{
             url:'/create-delivery',
-            templateUrl:'app/components/delivery/view/delivery.html',
+            templateUrl:'app/components/delivery/view/create-delivery.html',
             controller:'DeliveryCreateController'
         }).state('products',{
             url:'/products',
