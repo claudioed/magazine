@@ -13,6 +13,8 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.mongo.MongoClient;
 
 /**
+ * This receiver is responsible to register new sale in database.
+ *
  * @author Claudio E. de Oliveira (claudioed.oliveira@gmail.com).
  */
 public class RegisterSale extends AbstractVerticle {
@@ -21,26 +23,18 @@ public class RegisterSale extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
-        final MongoClient mongoClient = MongoClient.createShared(vertx,
-                new JsonObject().put("db_name", DomainDb.SALE.db()), DomainDb.SALE.poolName());
+        final MongoClient mongoClient = MongoClient.createShared(vertx,new JsonObject().put("db_name", DomainDb.SALE.db()), DomainDb.SALE.poolName());
         EventBus eventBus = vertx.eventBus();
         eventBus.consumer(DomainEvent.REGISTER_SALE.event(), message ->
-                mongoClient.insert(DomainCollection.SALES.collection(), new JsonObject(message
-                        .body().toString()), result -> {
+                mongoClient.insert(DomainCollection.SALES.collection(), new JsonObject(message.body().toString()), result -> {
                     if (result.succeeded()) {
                         LOGGER.info("Success on insert sale!!!");
-                        mongoClient.findOne(
-                                DomainCollection.SALES.collection(),
-                                new JsonObject().put("_id",result.result()),
-                                new JsonObject(),
-                                saleResult -> {
+                        mongoClient.findOne(DomainCollection.SALES.collection(),new JsonObject().put("_id",result.result()),new JsonObject(),saleResult -> {
                                     if (saleResult.failed()) {
                                         LOGGER.error("Error on find sale!!!");
                                     } else {
-                                        JsonArray saleItems = saleResult.result().getJsonArray(
-                                                "items");
-                                        saleItems.forEach(item -> eventBus.publish(
-                                                DomainEvent.REGISTER_ITEM_BY_SALE.event(), item));
+                                        JsonArray saleItems = saleResult.result().getJsonArray("items");
+                                        saleItems.forEach(item -> eventBus.publish(DomainEvent.REGISTER_ITEM_BY_SALE.event(), item));
                                     }
                                 });
                     } else {
