@@ -71,6 +71,24 @@ public class StockAPI extends AbstractVerticle {
                     ctx.response().end(resultArray.encode());
                 }));
 
+        router.get("/api/items").handler(
+                ctx -> mongoClient.find(DomainCollection.ITEMS.collection(), new JsonObject().put("$text", new JsonObject().put("$search", ctx.request().getParam("name"))), lookup -> {
+                    if (lookup.failed()) {
+                        ctx.fail(lookup.cause());
+                        return;
+                    } else if (lookup.result().isEmpty()) {
+                        ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                        ctx.response().setStatusCode(404);
+                        ctx.response().end(new JsonObject().encode());
+                        return;
+                    }
+                    ctx.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.mediaType());
+                    final JsonArray resultArray = new JsonArray();
+                    lookup.result().forEach(resultArray::add);
+                    ctx.response().end(resultArray.encode());
+                }));
+
+
         vertx.createHttpServer().requestHandler(router::accept).listen(config().getInteger("http.port", 8010));
         
     }
